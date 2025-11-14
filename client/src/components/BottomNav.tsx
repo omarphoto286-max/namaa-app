@@ -36,8 +36,8 @@ export function BottomNav() {
         className={`
           flex items-center gap-4 px-3 py-2 no-scrollbar
           ${dir === "rtl" ? "flex-row-reverse" : "flex-row"}
-          overflow-x-auto md:overflow-x-visible
-          md:justify-center md:flex-wrap
+          overflow-x-auto
+          md:overflow-x-visible md:justify-between md:w-full
         `}
         style={{
           direction: dir === "rtl" ? "rtl" : "ltr",

@@ -1,0 +1,75 @@
+Goal: Build a fully functional, personalized, bilingual web application with robust layout integrity and full authentication using Local Storage (Future-ready for Firebase).
+
+Tech Stack: React, Tailwind CSS, HTML, JavaScript.
+
+Data & Backend: Local Storage for all persistence. Full Authentication Logic (Name & Email/Password).
+
+I. 🌐 الإعداد والتجاوبية والمصادقة (Setup, Layout & Auth)
+Authentication Mode (CRITICAL): Implement full Sign Up and Sign In pages using Local Storage.
+
+Sign Up Requirement: Must collect Full Name (الاسم بالكامل), Email, and Password. Full Name is mandatory.
+
+Global Welcome: Display the personalized greeting in the header of every main page:
+
+"السلام عليكم يا [Full Name]" (If Arabic) or "Welcome, [Full Name]" (If English).
+
+Theme & Language Context: Implement robust Context providers for Theming (Gold/Green/Dark) and Language (RTL/LTR).
+
+RTL/LTR Layout Fixes (CRITICAL IMPLEMENTATION):
+
+Sidebar Fix: The navigation sidebar must use dynamic positioning (fixed-right/fixed-left or equivalent conditional logic) to ensure it is fixed to the Right of the screen when dir="rtl".
+
+Button Alignment Fix: All internal layouts and button groups must use flex-row-reverse or conditional CSS when dir="rtl" is active to ensure proper flow and alignment (e.g., action buttons are on the right).
+
+II. 🎯 الأقسام الأساسية والمحتوى
+1. 🏠 Dashboard (الرئيسية)
+Content (Daily Refresh): Must dynamically fetch and display a random Quranic verse (آية قرآنية) and a random wisdom quote (حكمة) from predefined lists.
+
+Interactive Feature: Implement the "Interactive Daily Growth Tree" component (SVG/Canvas based) as the central visual element.
+
+Growth Logic: Must reflect real-time progress: Leaves (Tasks/Pomodoro), Flower (5 Prayers), Fruit (Reading Goal).
+
+Quick Access Components (CRITICAL DUPLICATION):
+
+Full Pomodoro Timer component.
+
+Full Enhanced Dhikr Counter component.
+
+UI: Quick Access Cards for navigation.
+
+2. ☪️ Worship & Dhikr (العبادات والأذكار)
+Prayer Timings (Geolocation): Must prompt for and display accurate daily prayer times.
+
+Tracking: Checkboxes for 5 required prayers + optional Sunan prayers.
+
+Dhikr Counter (Enhanced):
+
+Must contain a predefined list of common Sunnah adhkār.
+
+The user must be able to select which specific dhikr they are counting.
+
+Allows custom target and custom phrase entry.
+
+3. 🎓 Study & Lessons (المذاكرة والدراسة)
+Pomodoro Timer (Central Tool): Full functionality (duplicated from Dashboard).
+
+Course Management: Full CRUD for user subjects.
+
+5 Daily Metrics (Customizable): Interface to record daily performance.
+
+4. ✅ Task Management (المهام)
+Full CRUD functionality with Priority flags and Tags.
+
+5. 📖 Spiritual Reading Werd (القراءة)
+Goal setting and Quick +1 / -1 progress buttons.
+
+III. 📈 الإحصائيات والإدارة
+Calendar & Stats: Charts for historical data review.
+
+Achievements: Display localized achievement badges.
+
+Motivation: Page for quotes and custom quotes.
+
+About & Developers: Dedicated page for developer information (Omar Basuoney, email, social links).
+
+Settings (CRITICAL): Full control over Themes, Language, and Data Management (Export/Import/Reset using JSON files).

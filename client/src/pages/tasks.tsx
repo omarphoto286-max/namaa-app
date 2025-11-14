@@ -121,7 +121,7 @@ export default function Tasks() {
 
   return (
     <div className="p-8 space-y-8">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-4xl font-bold">{t("tasks")}</h1>
         <div className="flex gap-3 items-center">
           <Select value={filter} onValueChange={(value: any) => setFilter(value)}>

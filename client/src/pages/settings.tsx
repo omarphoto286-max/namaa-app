@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, Upload, AlertTriangle } from "lucide-react";
+import { Download, Upload, RotateCcw, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
@@ -104,11 +104,94 @@ export default function Settings() {
     <div className="p-8 space-y-8">
       <h1 className="text-4xl font-bold">{t("settings")}</h1>
 
-      <div className="max-w-4xl mx-auto space-y-6">
+      {/** ← هنا التعديل الوحيد */}
+      <div className="w-full max-w-[1400px] mx-auto space-y-6">
+        
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle>{t("theme")}</CardTitle>
+            <CardDescription>
+              {language === "ar" ? "اختر مظهر التطبيق" : "Choose your app appearance"}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>{language === "ar" ? "المظهر" : "Theme"}</Label>
+              <Select value={theme} onValueChange={(value: any) => setTheme(value)}>
+                <SelectTrigger data-testid="select-theme">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="gold">{t("gold")}</SelectItem>
+                  <SelectItem value="green">{t("green")}</SelectItem>
+                  <SelectItem value="dark">{t("dark")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        {/* THEME SECTION ... (unchanged) */}
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              <div
+                className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                  theme === "gold" ? "border-primary shadow-lg" : "border-border"
+                }`}
+                onClick={() => setTheme("gold")}
+                data-testid="theme-preview-gold"
+              >
+                <div className="space-y-2">
+                  <div className="w-full h-12 rounded bg-gradient-to-br from-yellow-400 to-yellow-600" />
+                  <p className="text-center text-sm font-medium">{t("gold")}</p>
+                </div>
+              </div>
+              <div
+                className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                  theme === "green" ? "border-primary shadow-lg" : "border-border"
+                }`}
+                onClick={() => setTheme("green")}
+                data-testid="theme-preview-green"
+              >
+                <div className="space-y-2">
+                  <div className="w-full h-12 rounded bg-gradient-to-br from-emerald-400 to-emerald-600" />
+                  <p className="text-center text-sm font-medium">{t("green")}</p>
+                </div>
+              </div>
+              <div
+                className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                  theme === "dark" ? "border-primary shadow-lg" : "border-border"
+                }`}
+                onClick={() => setTheme("dark")}
+                data-testid="theme-preview-dark"
+              >
+                <div className="space-y-2">
+                  <div className="w-full h-12 rounded bg-gradient-to-br from-slate-700 to-slate-900" />
+                  <p className="text-center text-sm font-medium">{t("dark")}</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* LANGUAGE SECTION ... (unchanged) */}
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle>{t("language")}</CardTitle>
+            <CardDescription>
+              {language === "ar" ? "اختر لغة التطبيق" : "Choose your app language"}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>{language === "ar" ? "اللغة" : "Language"}</Label>
+              <Select value={language} onValueChange={(value: any) => setLanguage(value)}>
+                <SelectTrigger data-testid="select-language">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="ar">العربية</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="shadow-lg">
           <CardHeader>
@@ -118,30 +201,16 @@ export default function Settings() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-
-            {/* ⭐⭐⭐ التعديل هنا ⭐⭐⭐ */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full">
-              <Button
-                variant="outline"
-                onClick={exportData}
-                data-testid="button-export"
-                className="w-full"
-              >
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={exportData} data-testid="button-export">
                 <Download className="h-4 w-4 mr-2" />
                 {t("export")}
               </Button>
-
-              <Button
-                variant="outline"
-                onClick={importData}
-                data-testid="button-import"
-                className="w-full"
-              >
+              <Button variant="outline" onClick={importData} data-testid="button-import">
                 <Upload className="h-4 w-4 mr-2" />
                 {t("import")}
               </Button>
             </div>
-            {/* ⭐⭐⭐ انتهى التعديل ⭐⭐⭐ */}
 
             <div className="pt-4 border-t">
               <AlertDialog>
@@ -171,7 +240,6 @@ export default function Settings() {
                 </AlertDialogContent>
               </AlertDialog>
             </div>
-
           </CardContent>
         </Card>
       </div>

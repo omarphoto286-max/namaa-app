@@ -1,3 +1,4 @@
+// Improved Dashboard.jsx
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -28,14 +29,10 @@ export default function Dashboard() {
   const { user } = useAuth();
   const { t, language } = useLanguage();
   const [, setLocation] = useLocation();
+
   const [dailyVerse, setDailyVerse] = useState(QURANIC_VERSES[0]);
   const [wisdomQuote, setWisdomQuote] = useState(WISDOM_QUOTES[0]);
-  const [stats, setStats] = useState({
-    tasksCompleted: 0,
-    pomodoroSessions: 0,
-    prayersCompleted: 0,
-    readingProgress: 0,
-  });
+  const [stats, setStats] = useState({ tasksCompleted: 0, pomodoroSessions: 0, prayersCompleted: 0, readingProgress: 0 });
 
   useEffect(() => {
     const today = new Date().toDateString();
@@ -61,7 +58,7 @@ export default function Dashboard() {
     const prayersCompleted = [prayers.fajr, prayers.dhuhr, prayers.asr, prayers.maghrib, prayers.isha].filter(Boolean).length;
 
     const tasks = JSON.parse(localStorage.getItem(`tasks_${user?.id}`) || "[]");
-    const tasksCompleted = tasks.filter((t: any) => t.completed && t.createdAt?.startsWith(todayDate)).length;
+    const tasksCompleted = tasks.filter((t) => t.completed && t.createdAt?.startsWith(todayDate)).length;
 
     const pomodoro = JSON.parse(localStorage.getItem(`pomodoro_${user?.id}_${todayDate}`) || "{}");
     const pomodoroSessions = pomodoro.sessionsCompleted || 0;
@@ -73,72 +70,81 @@ export default function Dashboard() {
   }, [user]);
 
   const quickAccessCards = [
-    { icon: Flame, title: t("worship"), url: "/worship", color: "from-orange-500 to-red-500", testId: "card-worship" },
-    { icon: GraduationCap, title: t("study"), url: "/study", color: "from-blue-500 to-indigo-500", testId: "card-study" },
-    { icon: CheckSquare, title: t("tasks"), url: "/tasks", color: "from-green-500 to-emerald-500", testId: "card-tasks" },
-    { icon: BookOpen, title: t("reading"), url: "/reading", color: "from-purple-500 to-pink-500", testId: "card-reading" },
+    { icon: Flame, title: t("worship"), url: "/worship", color: "from-orange-500 to-red-500" },
+    { icon: GraduationCap, title: t("study"), url: "/study", color: "from-blue-500 to-indigo-500" },
+    { icon: CheckSquare, title: t("tasks"), url: "/tasks", color: "from-green-500 to-emerald-500" },
+    { icon: BookOpen, title: t("reading"), url: "/reading", color: "from-purple-500 to-pink-500" },
   ];
 
   return (
-    <div className="p-8 space-y-8">
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold">
+    <div className="p-6 sm:p-8 space-y-10 max-w-screen-xl mx-auto">
+      {/* Greeting */}
+      <div className="space-y-1 sm:space-y-2 text-center sm:text-left">
+        <h1 className="text-3xl sm:text-4xl font-bold">
           {language === "ar" ? `${t("greeting")} ${user?.fullName}` : `${t("greeting")}, ${user?.fullName}`}
         </h1>
-        <p className="text-muted-foreground">{t("today")}: {new Date().toLocaleDateString(language === "ar" ? "ar-EG" : "en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+        <p className="text-muted-foreground text-sm sm:text-base">
+          {t("today")}: {new Date().toLocaleDateString(language === "ar" ? "ar-EG" : "en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="shadow-lg" data-testid="card-verse">
+      {/* Daily Cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="font-quran text-2xl">{t("dailyVerse")}</CardTitle>
+            <CardTitle className="font-quran text-xl sm:text-2xl text-center sm:text-left">{t("dailyVerse")}</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-2xl font-quran text-center leading-relaxed" dir={language === "ar" ? "rtl" : "ltr"}>
+          <CardContent className="space-y-3">
+            <p className="text-xl sm:text-2xl font-quran text-center leading-relaxed" dir={language === "ar" ? "rtl" : "ltr"}>
               {language === "ar" ? dailyVerse.ar : dailyVerse.en}
             </p>
             <p className="text-sm text-muted-foreground text-center">{dailyVerse.ref}</p>
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg" data-testid="card-wisdom">
+        <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle>{t("wisdomQuote")}</CardTitle>
+            <CardTitle className="text-xl sm:text-2xl text-center sm:text-left">{t("wisdomQuote")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold text-center leading-relaxed">
+            <p className="text-xl sm:text-2xl font-semibold text-center leading-relaxed">
               {language === "ar" ? wisdomQuote.ar : wisdomQuote.en}
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="shadow-xl" data-testid="card-growthtree">
+      {/* Growth Tree */}
+      <Card className="shadow-xl hover:shadow-2xl transition-all duration-300">
         <CardHeader>
           <CardTitle className="text-2xl text-center">{t("growthTree")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <GrowthTree
-            tasksCompleted={stats.tasksCompleted}
-            pomodoroSessions={stats.pomodoroSessions}
-            prayersCompleted={stats.prayersCompleted}
-            readingProgress={stats.readingProgress}
-          />
+          <div className="w-full flex justify-center">
+            <GrowthTree
+              tasksCompleted={stats.tasksCompleted}
+              pomodoroSessions={stats.pomodoroSessions}
+              prayersCompleted={stats.prayersCompleted}
+              readingProgress={stats.readingProgress}
+            />
+          </div>
         </CardContent>
       </Card>
 
+      {/* Quick Access */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">{language === "ar" ? "الوصول السريع" : "Quick Access"}</h2>
+        <h2 className="text-2xl font-bold text-center sm:text-left">
+          {language === "ar" ? "الوصول السريع" : "Quick Access"}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickAccessCards.map((card) => (
             <Card
               key={card.url}
-              className="cursor-pointer hover-elevate active-elevate-2 transition-all duration-300 shadow-lg"
+              className="cursor-pointer hover:scale-[1.03] active:scale-95 transition-all duration-300 shadow-lg"
               onClick={() => setLocation(card.url)}
-              data-testid={card.testId}
             >
               <CardContent className="p-6 flex flex-col items-center gap-4">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center shadow-lg`}>
+                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center shadow-md`}>
                   <card.icon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-semibold text-lg text-center">{card.title}</h3>
@@ -148,6 +154,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Pomodoro & Dhikr */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <PomodoroTimer
           onSessionComplete={() => {

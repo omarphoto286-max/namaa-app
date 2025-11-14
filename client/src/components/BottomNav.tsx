@@ -32,7 +32,16 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-lg">
-      <div className={`flex items-center justify-around px-2 py-2 overflow-x-auto ${dir === "rtl" ? "flex-row-reverse" : ""}`}>
+      <div
+        className={`
+          flex items-center gap-4 px-3 py-2 overflow-x-auto no-scrollbar
+          ${dir === "rtl" ? "flex-row-reverse" : "flex-row"}
+        `}
+        style={{
+          direction: dir === "rtl" ? "rtl" : "ltr",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
         {navItems.map((item) => {
           const isActive = location === item.url;
           return (
@@ -40,11 +49,11 @@ export function BottomNav() {
               key={item.url}
               onClick={() => setLocation(item.url)}
               data-testid={item.testId}
-              className={`flex flex-col items-center justify-center min-w-[60px] px-2 py-1.5 rounded-lg transition-all hover-elevate ${
-                isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground"
-              }`}
+              className={`
+                flex flex-col items-center justify-center
+                min-w-[70px] px-2 py-1.5 rounded-lg transition-all hover-elevate
+                ${isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground"}
+              `}
             >
               <item.icon className={`h-5 w-5 mb-0.5 ${isActive ? "scale-110" : ""}`} />
               <span className="text-[10px] font-medium text-center leading-tight">

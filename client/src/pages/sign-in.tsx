@@ -7,12 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Globe } from "lucide-react";
 
 export default function SignIn() {
   const [, setLocation] = useLocation();
   const { signIn } = useAuth();
-  const { t, language, setLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,18 +41,13 @@ export default function SignIn() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-card to-background p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary)/0.05),_transparent_50%)] pointer-events-none" />
-      
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-6 right-6 z-10"
-        onClick={() => setLanguage(language === "en" ? "ar" : "en")}
-        data-testid="button-toggle-language"
-      >
-        <Globe className="h-5 w-5" />
-      </Button>
 
-      <Card className="w-full max-w-md shadow-2xl backdrop-blur-sm bg-card/95 border-border relative z-10" data-testid="card-signin">
+      {/* 🔥 زر تغيير اللغة اتشال من هنا */}
+
+      <Card
+        className="w-full max-w-md shadow-2xl backdrop-blur-sm bg-card/95 border-border relative z-10"
+        data-testid="card-signin"
+      >
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
             {language === "ar" ? "بركة" : "Baraka"}

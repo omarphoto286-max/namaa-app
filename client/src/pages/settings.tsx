@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, Upload, RotateCcw, AlertTriangle } from "lucide-react";
+import { Download, Upload, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
@@ -101,21 +101,24 @@ export default function Settings() {
   };
 
   return (
-    <div className="p-8 space-y-8">
-      <h1 className="text-4xl font-bold">{t("settings")}</h1>
+    <div className="p-6 md:p-10 space-y-8 max-w-5xl mx-auto">
+      <h1 className="text-3xl md:text-4xl font-bold text-center md:text-left">
+        {t("settings")}
+      </h1>
 
-      {/** ← هنا التعديل الوحيد */}
-      <div className="w-full max-w-[1400px] mx-auto space-y-6">
-        
-        <Card className="shadow-lg">
+      <div className="space-y-8">
+
+        {/* ---------------- Theme Card ---------------- */}
+        <Card className="shadow-md">
           <CardHeader>
             <CardTitle>{t("theme")}</CardTitle>
             <CardDescription>
               {language === "ar" ? "اختر مظهر التطبيق" : "Choose your app appearance"}
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
+
+          <CardContent className="space-y-6">
+            <div className="space-y-3">
               <Label>{language === "ar" ? "المظهر" : "Theme"}</Label>
               <Select value={theme} onValueChange={(value: any) => setTheme(value)}>
                 <SelectTrigger data-testid="select-theme">
@@ -129,58 +132,47 @@ export default function Settings() {
               </Select>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              <div
-                className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
-                  theme === "gold" ? "border-primary shadow-lg" : "border-border"
-                }`}
-                onClick={() => setTheme("gold")}
-                data-testid="theme-preview-gold"
-              >
-                <div className="space-y-2">
-                  <div className="w-full h-12 rounded bg-gradient-to-br from-yellow-400 to-yellow-600" />
-                  <p className="text-center text-sm font-medium">{t("gold")}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              {/* Themes previews */}
+              {["gold", "green", "dark"].map((th) => (
+                <div
+                  key={th}
+                  className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                    theme === th ? "border-primary shadow-lg" : "border-border"
+                  }`}
+                  onClick={() => setTheme(th)}
+                >
+                  <div className="space-y-2">
+                    <div
+                      className={`w-full h-12 rounded ${
+                        th === "gold"
+                          ? "bg-gradient-to-br from-yellow-400 to-yellow-600"
+                          : th === "green"
+                          ? "bg-gradient-to-br from-emerald-400 to-emerald-600"
+                          : "bg-gradient-to-br from-slate-700 to-slate-900"
+                      }`}
+                    />
+                    <p className="text-center font-medium">{t(th)}</p>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
-                  theme === "green" ? "border-primary shadow-lg" : "border-border"
-                }`}
-                onClick={() => setTheme("green")}
-                data-testid="theme-preview-green"
-              >
-                <div className="space-y-2">
-                  <div className="w-full h-12 rounded bg-gradient-to-br from-emerald-400 to-emerald-600" />
-                  <p className="text-center text-sm font-medium">{t("green")}</p>
-                </div>
-              </div>
-              <div
-                className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
-                  theme === "dark" ? "border-primary shadow-lg" : "border-border"
-                }`}
-                onClick={() => setTheme("dark")}
-                data-testid="theme-preview-dark"
-              >
-                <div className="space-y-2">
-                  <div className="w-full h-12 rounded bg-gradient-to-br from-slate-700 to-slate-900" />
-                  <p className="text-center text-sm font-medium">{t("dark")}</p>
-                </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
+        {/* ---------------- Language Card ---------------- */}
+        <Card className="shadow-md">
           <CardHeader>
             <CardTitle>{t("language")}</CardTitle>
             <CardDescription>
               {language === "ar" ? "اختر لغة التطبيق" : "Choose your app language"}
             </CardDescription>
           </CardHeader>
+
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>{language === "ar" ? "اللغة" : "Language"}</Label>
-              <Select value={language} onValueChange={(value: any) => setLanguage(value)}>
+              <Select value={language} onValueChange={(v: any) => setLanguage(v)}>
                 <SelectTrigger data-testid="select-language">
                   <SelectValue />
                 </SelectTrigger>
@@ -193,19 +185,26 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
+        {/* ---------------- Data Management Card ---------------- */}
+        <Card className="shadow-md">
           <CardHeader>
-            <CardTitle>{language === "ar" ? "إدارة البيانات" : "Data Management"}</CardTitle>
+            <CardTitle>{t("dataManagement") || (language === "ar" ? "إدارة البيانات" : "Data Management")}</CardTitle>
             <CardDescription>
-              {language === "ar" ? "صدر أو استورد أو أعد تعيين بياناتك" : "Export, import, or reset your data"}
+              {language === "ar"
+                ? "صدر أو استورد أو أعد تعيين بياناتك"
+                : "Export, import, or reset your data"}
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex gap-3">
+
+          <CardContent className="space-y-6">
+            
+            {/* Export / Import buttons — improved */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:justify-center">
               <Button variant="outline" onClick={exportData} data-testid="button-export">
                 <Download className="h-4 w-4 mr-2" />
                 {t("export")}
               </Button>
+
               <Button variant="outline" onClick={importData} data-testid="button-import">
                 <Upload className="h-4 w-4 mr-2" />
                 {t("import")}
@@ -215,11 +214,12 @@ export default function Settings() {
             <div className="pt-4 border-t">
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="destructive" data-testid="button-reset">
+                  <Button variant="destructive" data-testid="button-reset" className="w-full sm:w-auto">
                     <AlertTriangle className="h-4 w-4 mr-2" />
                     {t("resetData")}
                   </Button>
                 </AlertDialogTrigger>
+
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
@@ -240,8 +240,10 @@ export default function Settings() {
                 </AlertDialogContent>
               </AlertDialog>
             </div>
+
           </CardContent>
         </Card>
+
       </div>
     </div>
   );

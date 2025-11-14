@@ -154,6 +154,19 @@ export const settingsSchema = z.object({
     latitude: z.number(),
     longitude: z.number(),
   }).optional(),
+  metricNames: z.object({
+    metric1: z.object({ en: z.string(), ar: z.string(), visible: z.boolean() }).default({ en: "Focus", ar: "التركيز", visible: true }),
+    metric2: z.object({ en: z.string(), ar: z.string(), visible: z.boolean() }).default({ en: "Interaction", ar: "التفاعل", visible: true }),
+    metric3: z.object({ en: z.string(), ar: z.string(), visible: z.boolean() }).default({ en: "Application", ar: "التطبيق العملي", visible: true }),
+    metric4: z.object({ en: z.string(), ar: z.string(), visible: z.boolean() }).default({ en: "Mistake Reduction", ar: "تقليل الأخطاء", visible: true }),
+    metric5: z.object({ en: z.string(), ar: z.string(), visible: z.boolean() }).default({ en: "Discipline", ar: "الانضباط", visible: true }),
+  }).default({
+    metric1: { en: "Focus", ar: "التركيز", visible: true },
+    metric2: { en: "Interaction", ar: "التفاعل", visible: true },
+    metric3: { en: "Application", ar: "التطبيق العملي", visible: true },
+    metric4: { en: "Mistake Reduction", ar: "تقليل الأخطاء", visible: true },
+    metric5: { en: "Discipline", ar: "الانضباط", visible: true },
+  }),
 });
 
 export type Settings = z.infer<typeof settingsSchema>;
@@ -167,3 +180,15 @@ export const pomodoroSessionSchema = z.object({
 });
 
 export type PomodoroSession = z.infer<typeof pomodoroSessionSchema>;
+
+// Study Session Notes Schema
+export const studySessionNotesSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  courseId: z.string(),
+  date: z.string(),
+  errorLog: z.string().default(""),
+  reviewNotes: z.string().default(""),
+});
+
+export type StudySessionNotes = z.infer<typeof studySessionNotesSchema>;

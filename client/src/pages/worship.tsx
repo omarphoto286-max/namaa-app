@@ -28,20 +28,6 @@ export default function Worship() {
     sunnahIsha: false,
   });
 
-  useEffect(() => {
-    const todayDate = new Date().toISOString().split("T")[0];
-    const stored = localStorage.getItem(`prayers_${user?.id}_${todayDate}`);
-    if (stored) {
-      setPrayers(JSON.parse(stored));
-    }
-
-    const storedTimes = localStorage.getItem("prayerTimes");
-    const storedDate = localStorage.getItem("prayerTimesDate");
-    if (storedTimes && storedDate === todayDate) {
-      setPrayerTimes(JSON.parse(storedTimes));
-    }
-  }, [user]);
-
   const fetchPrayerTimes = async () => {
     setLoading(true);
     try {
@@ -83,6 +69,22 @@ export default function Worship() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const todayDate = new Date().toISOString().split("T")[0];
+    const stored = localStorage.getItem(`prayers_${user?.id}_${todayDate}`);
+    if (stored) {
+      setPrayers(JSON.parse(stored));
+    }
+
+    const storedTimes = localStorage.getItem("prayerTimes");
+    const storedDate = localStorage.getItem("prayerTimesDate");
+    if (storedTimes && storedDate === todayDate) {
+      setPrayerTimes(JSON.parse(storedTimes));
+    } else {
+      fetchPrayerTimes();
+    }
+  }, [user]);
 
   const togglePrayer = (prayer: keyof typeof prayers) => {
     const newPrayers = { ...prayers, [prayer]: !prayers[prayer] };

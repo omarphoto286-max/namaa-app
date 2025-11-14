@@ -77,6 +77,9 @@ const translations = {
     metric: "Metric",
     developer: "Developer",
     contact: "Contact",
+    sessions: "Sessions",
+    break: "Break",
+    focus: "Focus",
   },
   ar: {
     welcome: "مرحباً",
@@ -144,6 +147,9 @@ const translations = {
     metric: "المقياس",
     developer: "المطور",
     contact: "التواصل",
+    sessions: "الجلسات",
+    break: "استراحة",
+    focus: "تركيز",
   },
 };
 

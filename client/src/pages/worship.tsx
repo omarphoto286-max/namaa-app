@@ -37,7 +37,6 @@ export default function Worship() {
 
       const { latitude, longitude } = position.coords;
       const date = new Date();
-
       const day = date.getDate();
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
@@ -152,17 +151,13 @@ export default function Worship() {
                 <Checkbox
                   id={`sunnah${prayer.key}`}
                   checked={
-                  const key = `sunnah${prayer.key.charAt(0).toUpperCase() + prayer.key.slice(1)}` as keyof typeof prayers;
-
-{
-  prayers[key]
-}
-
+                    prayers[
+                      `sunnah${prayer.key.charAt(0).toUpperCase() + prayer.key.slice(1)}` as keyof typeof prayers
+                    ]
                   }
                   onCheckedChange={() =>
                     togglePrayer(
-                      `sunnah${prayer.key.charAt(0).toUpperCase() + prayer.key.slice(1)}`
-                      as keyof typeof prayers
+                      `sunnah${prayer.key.charAt(0).toUpperCase() + prayer.key.slice(1)}` as keyof typeof prayers
                     )
                   }
                 />

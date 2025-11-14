@@ -209,7 +209,7 @@ export default function Study() {
                     onClick={() => setSelectedCourse(course)}
                     data-testid={`course-${course.id}`}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-3">
                         <div
                           className="w-4 h-4 rounded-full"

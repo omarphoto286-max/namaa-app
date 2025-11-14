@@ -34,8 +34,10 @@ export function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-lg">
       <div
         className={`
-          flex items-center gap-4 px-3 py-2 overflow-x-auto no-scrollbar
+          flex items-center gap-4 px-3 py-2 no-scrollbar
           ${dir === "rtl" ? "flex-row-reverse" : "flex-row"}
+          overflow-x-auto md:overflow-x-visible
+          md:justify-center md:flex-wrap
         `}
         style={{
           direction: dir === "rtl" ? "rtl" : "ltr",

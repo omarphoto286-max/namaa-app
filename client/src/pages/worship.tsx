@@ -152,10 +152,12 @@ export default function Worship() {
                 <Checkbox
                   id={`sunnah${prayer.key}`}
                   checked={
-                    prayers[
-                      `sunnah${prayer.key.charAt(0).toUpperCase() + prayer.key.slice(1)}`
-                      as keyof typeof prayers
-                    ]
+                  const key = `sunnah${prayer.key.charAt(0).toUpperCase() + prayer.key.slice(1)}` as keyof typeof prayers;
+
+{
+  prayers[key]
+}
+
                   }
                   onCheckedChange={() =>
                     togglePrayer(

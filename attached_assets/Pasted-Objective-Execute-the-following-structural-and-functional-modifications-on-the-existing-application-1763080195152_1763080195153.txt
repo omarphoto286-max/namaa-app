@@ -1,0 +1,28 @@
+Objective: Execute the following structural and functional modifications on the existing application prototype. The primary goal is to retire the Sidebar and adopt a Bottom Navigation pattern, while ensuring the application adheres to all finalized features and fixes.
+
+1. 🔄 Critical Structural Change: Navigation Pattern
+Remove Sidebar: The fixed vertical Sidebar navigation component must be removed entirely from the application's structure.
+
+Implement Bottom Navigation Bar: Create a Fixed Bottom Navigation Bar across all main application pages (similar to a mobile tab bar).
+
+The Bottom Bar must contain clean icons and corresponding labels for all major sections (e.g., Dashboard, Worship & Dhikr, Study, Tasks, etc.).
+
+2. 🛡️ Layout Integrity & Localization Fixes
+Button Alignment Fix (CRITICAL): The issue where action button order does not reverse must be fixed. When switching to Arabic (dir="rtl"), button groups (like the +1 Page and -1 Page buttons) must use logic (e.g., flex-row-reverse) to ensure the positive action button is correctly placed on the Right.
+
+Project Name: Ensure the application name is correctly set to نماء | Namaa throughout the application (header, title, etc.).
+
+Section Renaming: Confirm the renaming of the "Prayers" section to Worship & Dhikr (العبادات والأذكار).
+
+3. 🖱️ Header Updates & Personalization
+Quick Controls in Header: The Theme Toggle and Language Switch controls must be explicitly placed in the Top Header/Navbar for quick access.
+
+Personalized Greeting: Ensure the top header displays the personalized greeting ("Welcome, [Full Name]" or "السلام عليكم يا [Full Name]") after the user signs in.
+
+4. 🌳 Dashboard Content Fixes
+Growth Tree/Summary: Ensure the Interactive Daily Growth Tree component is either properly fixed to function as intended (growing with progress) or replaced with a simple, functional daily progress summary card.
+
+Essential Content: Confirm the full functionality and visibility of the Daily Quranic Verse and Daily Wisdom Quote in the Dashboard.
+
+5. 🔁 Component Duplication Verification
+Verify that the full Pomodoro Timer component and the Enhanced Dhikr Counter component are now present on the Dashboard, in addition to their dedicated pages, for user convenience.
